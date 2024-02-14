@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+<style>
+    .image-container {
+        position: relative;
+        display: inline-block;
+    }
+    .poster {
+        height: auto;
+        position: relative;
+        animation: fadeInOut 6s infinite;
+        width: 100%;
+        border-radius: 10px;
+    }
+    @keyframes fadeInOut {
+        0%, 100% {
+            opacity: 1; /* 초기와 마지막에는 투명도 1로 설정 */
+        }
+        50% {
+            opacity: 0; /* 1초 후에 투명도 0으로 설정 */
+        }
+    }
+    .teamdesc{
+        width: 100%;
+        font-size: 30px;
+    }
+    .emp{
+        color: yellow;
+        text-decoration: underline;
+        text-shadow: 4px 2px 0 black, 0px -2px 0 black;
+    }
+    .desc{
+        color: yellow;
+        text-shadow: 5px 2px 0 black, 0px -2px 0 black;
+    }
+    .rules{
+        font-size: 40px;
+        margin-bottom: 20px;
+        padding: 5px;
+        text-align: start;
+        margin-top: 30px;
+        display: flex;
+    }
+    .rules > img {
+        width: 100px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="px-4 text-center container mb-5">
+    <div class="subject">
+        <img src="{{ url_for('static', filename='chalk.png')}}">
+        학습목표
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="image-container">
+                <img class="poster" src="{{ url_for('static', filename='six_sense_poster.png')}}" alt="Background Image">
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <h1 class="display-2 desc mt-4 fw-bold">WE've 6 SENSE!</h1>
+            <div class="col-lg-6 teamdesc mx-auto">
+                <p class="mb-4"><span class="emp">'직관'</span> 또는 <span class="emp">'육감'</span>을 사용하여 <br> 복잡한 문제를 해결하는 팀</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="subject">
+        <img src="{{ url_for('static', filename='chalk.png')}}">
+        학급규칙
+    </div>
+    <div class="container rules">
+        <img src="{{ url_for('static', filename='rules.png')}}">
+    </div>
+    
+
+    <div class="subject">
+        <img src="{{ url_for('static', filename='chalk.png')}}">
+        떠든사람
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+            <!-- 구성원 -->
+            <div class="card">
+                <img src="{{ url_for('static', filename='sh.png')}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h2 class="card-title">한승협</h2>
+                    <h3 class="card-text">ENFP</h3>
+                    <h4 class="card-text">김치찌개 짱</h4>
+                    <a href="{{ url_for('profile', name='한승협')}}" class="btn btn-lg btn-outline-primary">GO PROFILE</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <!-- 구성원 -->
+            <div class="card">
+                <img src="{{ url_for('static', filename='sh.png')}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h2 class="card-title">한승협</h2>
+                    <h3 class="card-text">ENFP</h3>
+                    <h4 class="card-text">김치찌개 짱</h4>
+                    <a href="#" class="btn btn-lg btn-outline-primary">GO PROFILE</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <!-- 구성원 -->
+            <div class="card">
+                <img src="{{ url_for('static', filename='sh.png')}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h2 class="card-title">한승협</h2>
+                    <h3 class="card-text">ENFP</h3>
+                    <h4 class="card-text">김치찌개 짱</h4>
+                    <a href="#" class="btn btn-lg btn-outline-primary">GO PROFILE</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <!-- 구성원 -->
+            <div class="card">
+                <img src="{{ url_for('static', filename='sh.png')}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h2 class="card-title">한승협</h2>
+                    <h3 class="card-text">ENFP</h3>
+                    <h4 class="card-text">김치찌개 짱</h4>
+                    <a href="#" class="btn btn-lg btn-outline-primary">GO PROFILE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
