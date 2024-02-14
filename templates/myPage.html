@@ -21,7 +21,10 @@
 
         .container-fluid {
             position: relative;
-            left: 45px;
+            left: 35px;
+        }
+        .bi{
+            font-size: 30px;
         }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -34,7 +37,7 @@
         </div>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <li class="ms-3 d-flex align-items-center justify-content-end me-5"><a class="link-body-emphasis" href="#"><i class="bi bi-house-door fa fa-fa-ad fa-3x"></i></a></li>
+                <li class="ms-3 d-flex align-items-center justify-content-end me-5"><a class="link-body-emphasis" href="{{ url_for('index')}}"><i class="bi bi-house-door fa fa-fa-ad fa-3x"></i></a></li>
             </li>
         </ul>
     </nav>
