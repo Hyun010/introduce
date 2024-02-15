@@ -19,37 +19,49 @@
         width: 100%;
         border-radius: 10px;
     }
+
     @keyframes fadeInOut {
-        0%, 100% {
-            opacity: 1; /* 초기와 마지막에는 투명도 1로 설정 */
+
+        0%,
+        100% {
+            opacity: 1;
+            /* 초기와 마지막에는 투명도 1로 설정 */
         }
+
         50% {
-            opacity: 0; /* 1초 후에 투명도 0으로 설정 */
+            opacity: 0;
+            /* 1초 후에 투명도 0으로 설정 */
         }
     }
-    .teamdesc{
+
+    .teamdesc {
         width: 100%;
         font-size: 30px;
     }
-    .emp{
+
+    .emp {
         color: yellow;
         text-decoration: underline;
         text-shadow: 4px 2px 0 black, 0px -2px 0 black;
     }
-    .desc{
+
+    .desc {
         color: yellow;
         text-shadow: 5px 2px 0 black, 0px -2px 0 black;
     }
-    .rules{
-        font-size: 40px;
+
+    .rules {
+        font-size: 30px;
         margin-bottom: 20px;
         padding: 5px;
         text-align: start;
         margin-top: 30px;
         display: flex;
     }
-    .rules > img {
+
+    .rules>img {
         width: 100px;
+        height: 175px;
     }
 </style>
 {% endblock %}
@@ -62,23 +74,41 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="image-container">
-                <img class="poster" src="{{ url_for('static', filename='six_sense_poster.png')}}" alt="Background Image">
+                <img class="poster" src="https://teamsparta.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F83c75a39-3aba-4ba4-a792-7aefe4b07895%2Fffbfeb08-12fa-43aa-a647-291b9dd7f160%2FDALLE_2024-02-13_15.11.29_-_Redraw_the_6_SENSE_logo_as_the_focal_point_in_the_image_maintaining_the_style_and_aesthetic_of_the_original_logo_within_the_modern_office_setting._.webp?table=block&id=deecf7b8-bb05-4048-a35d-20aea81afbdb&spaceId=83c75a39-3aba-4ba4-a792-7aefe4b07895&width=1920&userId=&cache=v2" alt="Background Image">
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center">
             <h1 class="display-2 desc mt-4 fw-bold">WE've 6 SENSE!</h1>
             <div class="col-lg-6 teamdesc mx-auto">
                 <p class="mb-4"><span class="emp">'직관'</span> 또는 <span class="emp">'육감'</span>을 사용하여 <br> 복잡한 문제를 해결하는 팀</p>
             </div>
+            <div class="subject mt-0 mb-0">
+                <img src="{{ url_for('static', filename='chalk.png')}}">
+                학급규칙
+            </div>
+            <div class="container rules ps-5">
+                <img src="{{ url_for('static', filename='rules.png')}}">
+                <div class="lh-1">
+                    <li class="rule_1 ps-5">서로 존중하는 분위기에서 회의와 프로젝트를 진행한다</li><br>
+                    <li class="rule_1 ps-5">시간 약속은 지킨다</li><br>
+                    <li class="rule_1 ps-5">기록 꼭 남기기(TIL)</li>
+                </div>
+            </div>
+            
         </div>
     </div>
 
     <div class="subject">
         <img src="{{ url_for('static', filename='chalk.png')}}">
-        학급규칙
+        학급목표
     </div>
     <div class="container rules">
         <img src="{{ url_for('static', filename='rules.png')}}">
+        <div class="lh-1">
+            <li class="rule_1 ps-5">'팀 소개 웹페이지' 프로젝트 완성</li><br>
+            <li class="rule_1 ps-5">같이 발전하는 팀이 되자!</li><br>
+            <li class="rule_1 ps-5">건강합시다!</li>
+        </div>
     </div>
     
 
