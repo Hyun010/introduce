@@ -1,8 +1,130 @@
 {% extends "layout.html" %}
 {% block title %}Index{% endblock %}
-
-{{ super() }}
+{% block head %}
+<style>
+    .namezone{
+        justify-content: center;
+        color :yellow;
+        display: flex;
+        align-items: start;
+        font-size: 70px;
+    }
+    .namezone > img{
+        width: 50px;
+    }
+    .piczone{
+        text-align: center;
+    }
+    .stupic{
+        width: 70%;
+        border-radius: 100%;
+    }
+    .info_header {
+        font-size: 36px;
+        color: #ffffff; /* 텍스트 색상 */
+        text-shadow: 0 0 10px #ffff00; /* 형광펜 색상과 블러 효과 */
+    }
+    .info_box{
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: var(--bs-body-color);
+        -moz-appearance: none;
+        appearance: none;
+        background-clip: padding-box;
+        border-radius: var(--bs-border-radius);
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        font-size: 20px;
+        overflow-y: auto;
+        height: 110px;
+        white-space: pre-line;
+        resize: none;
+        font-family: '궁서체';
+    }
+    .info_box:disabled{
+        background-color: #edff4a86;
+    }
+    textarea[overflow-y='hidden'] {
+        overflow-y: hidden; /* 내용이 텍스트 영역의 높이보다 클 경우 스크롤을 숨김 */
+        height: 150px; /* 텍스트 영역의 높이를 고정값으로 설정 */
+    }
+</style>
+{% endblock %}
 {% block content %}
+
+    <div class="container mt-5">
+        <div class="namezone">
+            <span>{{ data.stu.name }}</span>
+            {% if data.stu.sex == '남' %}
+                <img src="{{ url_for('static', filename='boy.png')}}">
+            {% else %}
+                <img src="{{ url_for('static', filename='girl.png')}}">
+            {% endif %}
+        </div>
+
+        <div class="row infozone mt-4">
+            <div class="col-lg-4 piczone" style="margin: auto">
+                <img class="stupic" src="{{ url_for('static', filename=data.stu.image)}}">
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="info_header">
+                            <span>자기소개</span>
+                        </div>
+                        <textarea class="info_box" disabled>
+                            {{ data.stu.intro }}
+                        </textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="info_header">
+                            <span>협업 스타일</span>
+                        </div>
+                        <textarea class="info_box" disabled>
+                            {{ data.stu.style }}
+                        </textarea>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-6">
+                        <div class="info_header">
+                            <span>좌우명</span>
+                        </div>
+                        <textarea class="info_box" disabled>
+                            {{ data.stu.life }}
+                        </textarea>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="info_header">
+                            <span>개발자 포부</span>
+                        </div>
+                        <textarea class="info_box" disabled>
+                            {{ data.stu.prom }}
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 text-end">
+            <a type="button" class="btn btn-success btn-lg" href="{{data.stu.blog}}">블로그</a>
+            <a class="btn btn-secondary btn-lg" href="{{url_for('home')}}">홈으로</a>
+        </div>
+    </div>
+
+   
+
+    <script>
+        document.getElementById('textarea').addEventListener('keydown', function(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault(); // 기본 엔터 키 동작을 막습니다.
+                this.value += '\n'; // 현재 텍스트 영역의 값을 가져와서 엔터 키를 추가합니다.
+            }
+        }); 
+    </script>
+    
+
 
 
 
