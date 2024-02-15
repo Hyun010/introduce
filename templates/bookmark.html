@@ -59,10 +59,12 @@
         background-color: #edff4a86;
     }
     
+    .container{
+        height: auto;
+    }
 </style>
 {% endblock %}
 {% block content %}
-
 <div class="container mt-5">
     <div class="titlezone">
         <span>OUR BOOKMARK</span>
@@ -156,13 +158,10 @@
             </div>
         </div>
     {% endfor %}
-    
-    
-
-
-
-
 </div>
+{% endblock %}
+
+{% block script %}
 <script>
     $(document).ready(function() {        
         $('.sendButton').click(function() {
