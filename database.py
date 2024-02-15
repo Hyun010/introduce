@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -21,6 +22,17 @@ class Student(db.Model):
 
     def __repr__(self):
         return  f"{self.age} 세 {self.loca} 거주중인 {self.name} 님"
+
+class Bookmark(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    site_name = db.Column(db.String, nullable=False)
+    site_url = db.Column(db.String, nullable=False)
+    hits = db.Column(db.Integer, default=0)
+    writer = db.Column(db.String, nullable=False, default="Unknown")
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
+
+    def __repr__(self):
+        return f"{self.writer} 가 작성한 {self.site_name}"
     
 
 

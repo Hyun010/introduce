@@ -1,0 +1,259 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+<style>
+    .titlezone {
+        justify-content: center;
+        color: white;
+        display: flex;
+        align-items: start;
+        font-size: 70px;
+    }
+
+    .namezone>img {
+        width: 50px;
+    }
+
+    .piczone {
+        text-align: center;
+    }
+
+    .stupic {
+        width: 70%;
+        border-radius: 100%;
+    }
+
+    .info_header {
+        font-size: 36px;
+        color: #ffffff;
+        /* 텍스트 색상 */
+        text-shadow: 0 0 10px #ffff00;
+        /* 형광펜 색상과 블러 효과 */
+    }
+
+    .form-label {
+        color: black !important;
+    }
+
+    .info_box {
+        display: block;
+        width: 100%;
+        padding: .375rem .75rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: var(--bs-body-color);
+        -moz-appearance: none;
+        appearance: none;
+        background-clip: padding-box;
+        border-radius: var(--bs-border-radius);
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        font-size: 20px;
+        overflow-y: auto;
+        height: 110px;
+        white-space: pre-line;
+        resize: none;
+        font-family: '궁서체';
+    }
+
+    .info_box:disabled {
+        background-color: #edff4a86;
+    }
+    
+</style>
+{% endblock %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="titlezone">
+        <span>OUR BOOKMARK</span>
+    </div>
+    <div class="text-end">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createmodal">
+            + ADD BOOKMARK
+        </button>
+
+        <div class="row">
+            {% for b in data.books %}
+                <div class="col-lg-3 mt-4">
+                    <div class="card text-center">
+                        <div class="card-header text-end">
+                            {{ b.hits }} hits
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                {{ b.site_name }}
+                            </h3>
+                            <input type="hidden" id="input{{loop.index}}" value="{{ b.site_name }}_{{ b.writer }}">
+                            <a href="{{ b.site_url }}" class="btn btn-success sendButton" data-target="#input{{loop.index}}" target="_blank">MOVE</a>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#remModal{{loop.index}}">
+                                REMOVE
+                            </button>
+                        </div>
+                        <div class="card-footer text-body-secondary">
+                            created by {{ b.writer }} {{ b.created_at.strftime('%Y/%m/%d %H:%M') }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="createmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">사이트 이름</label>
+                        <input type="text" name="site_name" class="form-control" id="snForm"
+                            placeholder="사이트 이름을 입력해주세요">
+                    </div>
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">사이트 URL</label>
+                        <input type="text" name="site_url" class="form-control" id="suForm"
+                            placeholder="사이트 URL 을 입력해주세요">
+                    </div>
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">작성자 이름</label>
+                        <input type="text" name="writer" class="form-control" id="wrForm"
+                            placeholder="작성자 이름을 입력해주세요">
+                    </div>
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">생성코드</label>
+                        <input type="password" class="form-control" id="managecode"
+                            placeholder="북마크 생성코드를 입력해주세요">
+                    </div>
+                    <div class="text-end mb-2">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">생성 취소</button>
+                        <button class="modalButton btn btn-primary" data-target="">북마크 생성</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    {% for b in data.books %}
+        <div class="modal fade" id="remModal{{loop.index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <h4 class="form-label">{{ b.writer }}님 께서 생성하신 {{ b.site_name }} 사이트 북마크를 삭제하시겠습니까?</h4>
+                            <input type="password" class="form-control mt-4" id="remove{{b.id}}"
+                                placeholder="관리자 코드를 입력해주세요" >
+                            
+                        </div>
+                        <div class="text-end mb-2" id="remove">
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">생성 취소</button>
+                            <button type="button" class="btn btn-danger modalButton" data-target="#remove{{b.id}}">북마크 삭제</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    
+    
+
+
+
+
+</div>
+<script>
+    $(document).ready(function() {        
+        $('.sendButton').click(function() {
+            // 해당 버튼에 연결된 입력 요소의 id 가져오기
+            var inputId = $(this).data('target');
+            // 해당 입력 요소의 값 가져오기
+            var inputValue = $(inputId).val();
+            // 서버로 전송할 데이터
+            var sendData = {
+                value: inputValue.split("_")
+            };
+            // AJAX 요청으로 데이터 전송
+            $.ajax({
+                url: '/add_hits',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(sendData),
+                success:function response(){
+                    location.reload();
+                }
+            });
+        });
+
+        $('#remove .modalButton').click(function() {
+            // 해당 버튼에 연결된 입력 요소의 id 가져오기
+            var inputId = $(this).data('target');
+            // 해당 입력 요소의 값 가져오기
+            var inputValue = $(inputId).val();
+            // 서버로 전송할 데이터
+            var sendData = {
+                value: [inputId.split('remove')[1], inputValue]
+            };
+            // AJAX 요청으로 데이터 전송
+            $.ajax({
+                url: '/bookmark/',
+                type: 'DELETE',
+                contentType: 'application/json',
+                data: JSON.stringify(sendData),
+                success:function(){
+                    location.reload();
+                },
+                error:function(response){
+                    alert(response.responseJSON.message);
+                    location.reload();
+                }
+            });
+        });   
+        $('#createmodal .modalButton').click(function() {
+            var site_name = $('#snForm').val();
+            var site_url = $('#suForm').val();
+            var writer = $('#wrForm').val();
+            var managecode = $('#managecode').val();
+
+            if(!site_name){
+                alert("INPUT SITE NAME");
+            }else if(!site_url){
+                alert("INPUT SITE URL");
+            }else if(!managecode){
+                alert("INPUT MANAGE CODE");
+            }else{
+                var sendData = {
+                    site_name: site_name,
+                    site_url: site_url,
+                    writer: writer,
+                    managecode: managecode
+                };
+                $.ajax({
+                    url: '/bookmark/',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(sendData),
+                    success:function(){
+                        location.reload();
+                    },
+                    error:function(response){
+                        alert(response.responseJSON.message);
+                        location.reload();
+                    }
+                });
+            }
+        })
+        $('.modal').on('shown.bs.modal', function () {
+            $(this).find('input:first').focus();
+        });
+    })
+    $(document).keypress(function(e) {
+        if (e.keyCode == 13) {
+            // 현재 열려있는 모달 내의 버튼 클릭
+            var modalId = $('.modal.show').attr('id');
+            $('#' + modalId + ' .modalButton').click();
+        }
+    });
+</script>
+{% endblock %}
