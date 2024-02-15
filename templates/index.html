@@ -6,6 +6,12 @@
         position: relative;
         display: inline-block;
     }
+    .profilepic{
+        height: 350px;
+    }
+    .profilepic:hover{
+        opacity: 0.4;
+    }
     .poster {
         height: auto;
         position: relative;
@@ -56,7 +62,7 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="image-container">
-                <img class="poster" src="https://teamsparta.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F83c75a39-3aba-4ba4-a792-7aefe4b07895%2Fffbfeb08-12fa-43aa-a647-291b9dd7f160%2FDALLE_2024-02-13_15.11.29_-_Redraw_the_6_SENSE_logo_as_the_focal_point_in_the_image_maintaining_the_style_and_aesthetic_of_the_original_logo_within_the_modern_office_setting._.webp?table=block&id=deecf7b8-bb05-4048-a35d-20aea81afbdb&spaceId=83c75a39-3aba-4ba4-a792-7aefe4b07895&width=1920&userId=&cache=v2" alt="Background Image">
+                <img class="poster" src="{{ url_for('static', filename='six_sense_poster.png')}}" alt="Background Image">
             </div>
         </div>
         <div class="col-lg-6">
@@ -66,7 +72,7 @@
             </div>
         </div>
     </div>
-<div>
+
     <div class="subject">
         <img src="{{ url_for('static', filename='chalk.png')}}">
         학급규칙
@@ -74,64 +80,27 @@
     <div class="container rules">
         <img src="{{ url_for('static', filename='rules.png')}}">
     </div>
-</div>
+    
 
     <div class="subject">
         <img src="{{ url_for('static', filename='chalk.png')}}">
         떠든사람
-    </div>1
+    </div>
     <div class="row">
-        <div class="col-lg-3">
-            <!-- 구성원 -->
-            <div class="card">
-                <img src="https://citrine-wallaby-93f.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Fc6f85bed-6385-4f92-a30c-49e507bf2add%2F38c30a38-79aa-429d-a22c-2b37c6ba7c91%2F%25EC%2597%25AC%25EA%25B6%258C%25EC%2582%25AC%25EC%25A7%2584.jpg?table=block&id=1aa05fab-2129-4625-aa09-43465c405509&spaceId=c6f85bed-6385-4f92-a30c-49e507bf2add&width=1920&userId=&cache=v2" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h2 class="card-title">박성현</h2>
-                    <h3 class="card-text">ESTJ</h3>
-                    <h4 class="card-text">한 번 사는 인생 즐겨라</h4>
-                    <a href="{{ url_for('myPage')}}" class="btn btn-lg btn-outline-primary">GO PROFILE</a>
+        {% for s in data.stus %}        
+            <div class="col-lg-3">
+                <!-- 구성원 -->
+                <div class="card">
+                    <a href="{{ url_for('profile', name=s.name)}}"><img src="{{ url_for('static', filename=s.image)}}" class="card-img-top profilepic" alt="..."></a>
+                    <div class="card-body">
+                        <h2 class="card-title">{{ s.name }}</h2>
+                        <h3 class="card-text">{{ s.mbti }}</h3>
+                        <h4 class="card-text">{{ s.life|truncate(20) }}</h4>
+                        <a href="{{ url_for('profile', name=s.name)}}" class="btn btn-lg btn-outline-primary">GO PROFILE</a>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="col-lg-3">
-            <!-- 구성원 -->
-            <div class="card">
-                <img src="{{ url_for('static', filename='sh.png')}}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h2 class="card-title">한승협</h2>
-                    <h3 class="card-text">ENFP</h3>
-                    <h4 class="card-text">김치찌개 짱</h4>
-                    <a href="{{ url_for('profile', name='한승협')}}" class="btn btn-lg btn-outline-primary">GO PROFILE</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <!-- 구성원 -->
-            <div class="card">
-                <img src="{{ url_for('static', filename='sh.png')}}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h2 class="card-title">한승협</h2>
-                    <h3 class="card-text">ENFP</h3>
-                    <h4 class="card-text">김치찌개 짱</h4>
-                    <a href="#" class="btn btn-lg btn-outline-primary">GO PROFILE</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <!-- 구성원 -->
-            <div class="card">
-                <img src="{{ url_for('static', filename='sh.png')}}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h2 class="card-title">한승협</h2>
-                    <h3 class="card-text">ENFP</h3>
-                    <h4 class="card-text">김치찌개 짱</h4>
-                    <a href="#" class="btn btn-lg btn-outline-primary">GO PROFILE</a>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 
 </div>
