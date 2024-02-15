@@ -3,15 +3,16 @@
 {% block head %}
 <style>
     .namezone {
-        justify-content: center;
-        color: yellow;
+        justify-content: space-between;
         display: flex;
         align-items: start;
+        color: yellow;
         font-size: 70px;
     }
 
     .namezone>img {
-        width: 50px;
+        position: relative;
+        bottom: 30px;
     }
 
     .piczone {
@@ -61,67 +62,95 @@
         height: 150px;
         /* 텍스트 영역의 높이를 고정값으로 설정 */
     }
+
+    .fm {
+        position: relative;
+        bottom: 30px;
+    }
+
+    .nametag {
+        position: relative;
+        left: 47%;
+    }
+
+    .weather {
+        position: relative;
+        left: 5%;
+        color: yellow;
+        font-size: 70px;
+    }
+
+    .bt {
+        background-color: transparent;
+        color: yellow;
+        font-size: 70px;
+        border: none;
+    }
 </style>
 {% endblock %}
 {% block content %}
 
 <div class="container mt-5">
     <div class="namezone">
-        <span>{{ data.stu.name }}</span>
-        {% if data.stu.sex == '남' %}
-        <img src="{{ url_for('static', filename='boy.png')}}">
-        {% else %}
-        <img src="{{ url_for('static', filename='girl.png')}}">
-        {% endif %}
-    </div>
-
-    <div class="row infozone mt-4">
-        <div class="col-lg-4 piczone" style="margin: auto">
-            <img class="stupic" src="{{ url_for('static', filename=data.stu.image)}}">
+        <div class="nametag">
+            <span>{{ data.stu.name }}</span>
+            {% if data.stu.sex == '남' %}
+            <img class="fm" width="50px" height="50px" src="{{ url_for('static', filename='boy.png')}}">
+            {% else %}
+            <img class="fm" width="50px" height="50px" src="{{ url_for('static', filename='girl.png')}}">
+            {% endif %}
         </div>
-        <div class="col-lg-8">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="info_header">
-                        <span>자기소개</span>
-                    </div>
-                    <textarea class="info_box" disabled>
+        <p id="wea" class="weather"><button class="bt" onclick="q1('{{data.stu.loca}}')">날씨</button></p>
+    </div>
+</div>
+
+<div class="row infozone mt-4">
+    <div class="col-lg-4 piczone" style="margin: auto">
+        <img class="stupic" src="{{ url_for('static', filename=data.stu.image)}}">
+    </div>
+    <div class="col-lg-8">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="info_header">
+                    <span>자기소개</span>
+                </div>
+                <textarea class="info_box" disabled>
                             {{ data.stu.intro }}
                         </textarea>
+            </div>
+            <div class="col-lg-6">
+                <div class="info_header">
+                    <span>협업 스타일</span>
                 </div>
-                <div class="col-lg-6">
-                    <div class="info_header">
-                        <span>협업 스타일</span>
-                    </div>
-                    <textarea class="info_box" disabled>
+                <textarea class="info_box" disabled>
                             {{ data.stu.style }}
                         </textarea>
-                </div>
             </div>
-            <div class="row mt-3">
-                <div class="col-lg-6">
-                    <div class="info_header">
-                        <span>좌우명</span>
-                    </div>
-                    <textarea class="info_box" disabled>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-6">
+                <div class="info_header">
+                    <span>좌우명</span>
+                </div>
+                <textarea class="info_box" disabled>
                             {{ data.stu.life }}
                         </textarea>
+            </div>
+            <div class="col-lg-6">
+                <div class="info_header">
+                    <span>개발자 포부</span>
                 </div>
-                <div class="col-lg-6">
-                    <div class="info_header">
-                        <span>개발자 포부</span>
-                    </div>
-                    <textarea class="info_box" disabled>
+                <textarea class="info_box" disabled>
                             {{ data.stu.prom }}
                         </textarea>
-                </div>
             </div>
         </div>
     </div>
-    <div class="mt-4 text-end">
-        <a type="button" class="btn btn-success btn-lg" href="{{data.stu.blog}}">블로그</a>
-        <a class="btn btn-secondary btn-lg" href="{{url_for('home')}}">홈으로</a>
-    </div>
+</div>
+<div class="mt-4 text-end">
+    <a type="button" class="btn btn-success btn-lg" href="{{data.stu.blog}}">블로그</a>
+    <a class="btn btn-secondary btn-lg" href="{{url_for('home')}}">홈으로</a>
+</div>
 </div>
 
 <script>
@@ -141,77 +170,80 @@
     }
 
     function q1(a) {
-    const date = new Date();
-    year = date.getFullYear();
-    month = addZero(date.getMonth() + 1);
+        const date = new Date();
+        year = date.getFullYear();
+        month = addZero(date.getMonth() + 1);
 
-    day = addZero(date.getDate())
-    hours = addZero(date.getHours())
-    min = addZero(date.getMinutes()) - 30
-    loca = a
-    switch (loca) {
-        case "대구": x = 89, y = 90
-            break;
-        case "서울": x = 60, y = 127
-            break;
-        case "부산": x = 98, y = 76
-            break;
-        case "인천": x = 55, y = 124
-            break;
-        case "광주": x = 58, y = 74
-            break;
-        case "대전": x = 67, y = 100
-            break;
-        case "울산": x = 102, y = 84
-            break;
-        case "세종": x = 66, y = 103
-            break;
-        case "경기": x = 60, y = 120
-            break;
-        case "강원": x = 173, y = 134
-            break;
-        case "충북": x = 69, y = 107
-            break;
-        case "충남": x = 68, y = 100
-            break;
-        case "전북": x = 63, y = 89
-            break;
-        case "전남": x = 51, y = 67
-            break;
-        case "경북": x = 89, y = 91
-            break;
-        case "경북": x = 89, y = 91
-            break;
-        case "경남": x = 91, y = 77
-            break;
-        case "제주": x = 52, y = 38
-            break;
-    }
-    //오픈AI
-    url = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=%2FLicGwq516VzXp1SmygKDENxiQOj%2FBOzF9XaR1qTv%2B6G6qIWvzmHhh9FOS0oHBSnOgd5KMb30G52RLPgKq7XXA%3D%3D&numOfRows=8&pageNo=1&dataType=JSON&base_date=${year}${month}${day}&base_time=${hours}${min}&nx=${x}&ny=${y}`
-    fetch(url)
-        .then(res => res.json())
-        .then(data => {
-            let pty = data["response"]["body"]["items"]["item"][0]["obsrValue"] //강수형태 0맑음 1비 2비/눈 3눈 5빗방울 6빗방울눈날립 7눈날림
-            let t1h = data["response"]["body"]["items"]["item"][3]["obsrValue"] //온도
+        day = addZero(date.getDate())
+        hours = addZero(date.getHours())
+        min = addZero(date.getMinutes()) - 30
+        loca = a
+        switch (loca) {
+            case "대구": x = 89, y = 90
+                break;
+            case "서울": x = 60, y = 127
+                break;
+            case "부산": x = 98, y = 76
+                break;
+            case "인천": x = 55, y = 124
+                break;
+            case "광주": x = 58, y = 74
+                break;
+            case "대전": x = 67, y = 100
+                break;
+            case "울산": x = 102, y = 84
+                break;
+            case "세종": x = 66, y = 103
+                break;
+            case "경기": x = 60, y = 120
+                break;
+            case "강원": x = 173, y = 134
+                break;
+            case "충북": x = 69, y = 107
+                break;
+            case "충남": x = 68, y = 100
+                break;
+            case "전북": x = 63, y = 89
+                break;
+            case "전남": x = 51, y = 67
+                break;
+            case "경북": x = 89, y = 91
+                break;
+            case "경북": x = 89, y = 91
+                break;
+            case "경남": x = 91, y = 77
+                break;
+            case "제주": x = 52, y = 38
+                break;
+        }
+        //오픈AI
+        url = `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=%2FLicGwq516VzXp1SmygKDENxiQOj%2FBOzF9XaR1qTv%2B6G6qIWvzmHhh9FOS0oHBSnOgd5KMb30G52RLPgKq7XXA%3D%3D&numOfRows=8&pageNo=1&dataType=JSON&base_date=${year}${month}${day}&base_time=${hours}${min}&nx=${x}&ny=${y}`
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                $('#wea').empty()
+                let pty = data["response"]["body"]["items"]["item"][0]["obsrValue"] //강수형태 0맑음 1비 2비/눈 3눈 5빗방울 6빗방울눈날립 7눈날림
+                let t1h = data["response"]["body"]["items"]["item"][3]["obsrValue"] //온도
 
-            switch (pty) {
-                case 1: pty_r = "🌧"
-                    break;
-                case 2: pty_r = "🌧🌨"
-                    break;
-                case 3: pty_r = "🌨"
-                    break;
-                case 5: pty_r = "☔"
-                    break;
-                case 6: pty_r = "☔❄"
-                    break;
-                case 7: pty_r = "❄"
-                    break;
-                default: pty_r = "🌞"
-                    break;
-            }
-        })
+                switch (pty) {
+                    case 1: pty_r = "🌧"
+                        break;
+                    case 2: pty_r = "🌧🌨"
+                        break;
+                    case 3: pty_r = "🌨"
+                        break;
+                    case 5: pty_r = "☔"
+                        break;
+                    case 6: pty_r = "☔❄"
+                        break;
+                    case 7: pty_r = "❄"
+                        break;
+                    default: pty_r = "🌞"
+                        break;
+                }
+                let temp_html = `<p>${loca} ${pty_r} ${t1h}°C`
+                $('#wea').append(temp_html)
+            })
     }
 
 </script>
