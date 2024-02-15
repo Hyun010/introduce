@@ -3,7 +3,7 @@
 {% block head %}
 <style>
     .namezone {
-        justify-content: center;
+        justify-content: space-between;
         display: flex;
         align-items: start;
         color: yellow;
@@ -62,21 +62,45 @@
         height: 150px;
         /* 텍스트 영역의 높이를 고정값으로 설정 */
     }
+
+    .fm {
+        position: relative;
+        bottom: 30px;
+    }
+
+    .nametag {
+        position: relative;
+        left: 47%;
+    }
+
+    .weather {
+        position: relative;
+        left: 5%;
+        color: yellow;
+        font-size: 70px;
+    }
+
+    .bt {
+        background-color: transparent;
+        color: yellow;
+        font-size: 70px;
+        border: none;
+    }
 </style>
 {% endblock %}
 {% block content %}
 
 <div class="container mt-5">
     <div class="namezone">
-        <span>{{ data.stu.name }}</span>
-        <div class="d-flex align-self-start justify-content-center">
+        <div class="nametag">
+            <span>{{ data.stu.name }}</span>
             {% if data.stu.sex == '남' %}
-            <img width="50px" height="50px" src="{{ url_for('static', filename='boy.png')}}">
+            <img class="fm" width="50px" height="50px" src="{{ url_for('static', filename='boy.png')}}">
             {% else %}
-            <img width="50px" height="50px" src="{{ url_for('static', filename='girl.png')}}">
+            <img class="fm" width="50px" height="50px" src="{{ url_for('static', filename='girl.png')}}">
             {% endif %}
         </div>
-        <p class="d-flex justify-content-end">날씨입니다</p>
+        <p id="wea" class="weather"><button class="bt" onclick="q1('{{data.stu.loca}}')">날씨</button></p>
     </div>
 </div>
 
@@ -197,6 +221,7 @@
         fetch(url)
             .then(res => res.json())
             .then(data => {
+                $('#wea').empty()
                 let pty = data["response"]["body"]["items"]["item"][0]["obsrValue"] //강수형태 0맑음 1비 2비/눈 3눈 5빗방울 6빗방울눈날립 7눈날림
                 let t1h = data["response"]["body"]["items"]["item"][3]["obsrValue"] //온도
 
@@ -216,6 +241,8 @@
                     default: pty_r = "🌞"
                         break;
                 }
+                let temp_html = `<p>${loca} ${pty_r} ${t1h}°C`
+                $('#wea').append(temp_html)
             })
     }
 
