@@ -1,17 +1,25 @@
 {% extends "layout.html" %}
 {% block title %}Index{% endblock %}
 {% block head %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+<title>웹 프로젝트</title>
+
 <style>
     .image-container {
         position: relative;
         display: inline-block;
     }
-    .profilepic{
+
+    .profilepic {
         height: 350px;
     }
-    .profilepic:hover{
+
+    .profilepic:hover {
         opacity: 0.4;
     }
+
     .poster {
         height: auto;
         position: relative;
@@ -63,6 +71,57 @@
         width: 100px;
         height: 175px;
     }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+    }
+
+    .container3 {
+        flex: 1;
+        max-width: 800px;
+        margin: 30px;
+        padding: 10px;
+        background-color: rgba(255, 255, 255, 0);
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+    }
+
+    #guestbook {
+        margin-top: 20px;
+    }
+
+    textarea {
+        width: 95%;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .namecard {
+        width: 30%;
+        margin-bottom: 10px;
+
+    }
+
+    #guestbook {
+        float: right;
+        margin-top: 10px;
+
+    }
+    .container.rules {
+    display: flex;
+}
+</style>
 </style>
 {% endblock %}
 {% block content %}
@@ -74,13 +133,16 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="image-container">
-                <img class="poster" src="https://teamsparta.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F83c75a39-3aba-4ba4-a792-7aefe4b07895%2Fffbfeb08-12fa-43aa-a647-291b9dd7f160%2FDALLE_2024-02-13_15.11.29_-_Redraw_the_6_SENSE_logo_as_the_focal_point_in_the_image_maintaining_the_style_and_aesthetic_of_the_original_logo_within_the_modern_office_setting._.webp?table=block&id=deecf7b8-bb05-4048-a35d-20aea81afbdb&spaceId=83c75a39-3aba-4ba4-a792-7aefe4b07895&width=1920&userId=&cache=v2" alt="Background Image">
+                <img class="poster"
+                    src="https://teamsparta.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F83c75a39-3aba-4ba4-a792-7aefe4b07895%2Fffbfeb08-12fa-43aa-a647-291b9dd7f160%2FDALLE_2024-02-13_15.11.29_-_Redraw_the_6_SENSE_logo_as_the_focal_point_in_the_image_maintaining_the_style_and_aesthetic_of_the_original_logo_within_the_modern_office_setting._.webp?table=block&id=deecf7b8-bb05-4048-a35d-20aea81afbdb&spaceId=83c75a39-3aba-4ba4-a792-7aefe4b07895&width=1920&userId=&cache=v2"
+                    alt="Background Image">
             </div>
         </div>
         <div class="col-lg-6 d-flex flex-column justify-content-center align-items-center">
             <h1 class="display-2 desc mt-4 fw-bold">WE've 6 SENSE!</h1>
             <div class="col-lg-6 teamdesc mx-auto">
-                <p class="mb-4"><span class="emp">'직관'</span> 또는 <span class="emp">'육감'</span>을 사용하여 <br> 복잡한 문제를 해결하는 팀</p>
+                <p class="mb-4"><span class="emp">'직관'</span> 또는 <span class="emp">'육감'</span>을 사용하여 <br> 복잡한 문제를 해결하는 팀
+                </p>
             </div>
             <div class="subject mt-0 mb-0">
                 <img src="{{ url_for('static', filename='chalk.png')}}">
@@ -94,7 +156,7 @@
                     <li class="rule_1 ps-5">기록 꼭 남기기(TIL)</li>
                 </div>
             </div>
-            
+
         </div>
     </div>
 
@@ -109,31 +171,109 @@
             <li class="rule_1 ps-5">같이 발전하는 팀이 되자!</li><br>
             <li class="rule_1 ps-5">건강합시다!</li>
         </div>
+        <div class="container3">
+            <h1>방명록</h1>
+            <div>
+                <div class="namecard">
+                    <input type="text" id="name" placeholder="이름을 입력하세요">
+                </div>
+                <textarea id="message" placeholder="메시지를 입력하세요"></textarea>
+                <button onclick="addMessage()">완료</button>
+            </div>
+            <div id="guestbook">
+                <!-- 방명록 메시지가 여기에 추가됩니다 -->
+            </div>
+        </div>
     </div>
-    
+
 
     <div class="subject">
         <img src="{{ url_for('static', filename='chalk.png')}}">
         떠든사람
     </div>
     <div class="row">
-        {% for s in data.stus %}        
-            <div class="col-lg-3">
-                <!-- 구성원 -->
-                <div class="card">
-                    <a href="{{ url_for('profile', name=s.name)}}"><img src="{{ url_for('static', filename=s.image)}}" class="card-img-top profilepic" alt="..."></a>
-                    <div class="card-body">
-                        <h2 class="card-title">{{ s.name }}</h2>
-                        <h3 class="card-text">{{ s.mbti }}</h3>
-                        <h4 class="card-text">{{ s.life|truncate(20) }}</h4>
-                        <a href="{{ url_for('profile', name=s.name)}}" class="btn btn-lg btn-outline-primary">GO PROFILE</a>
-                    </div>
+        {% for s in data.stus %}
+        <div class="col-lg-3">
+            <!-- 구성원 -->
+            <div class="card">
+                <a href="{{ url_for('profile', name=s.name)}}"><img src="{{ url_for('static', filename=s.image)}}"
+                        class="card-img-top profilepic" alt="..."></a>
+                <div class="card-body">
+                    <h2 class="card-title">{{ s.name }}</h2>
+                    <h3 class="card-text">{{ s.mbti }}</h3>
+                    <h4 class="card-text">{{ s.life|truncate(20) }}</h4>
+                    <a href="{{ url_for('profile', name=s.name)}}" class="btn btn-lg btn-outline-primary">GO PROFILE</a>
                 </div>
             </div>
+        </div>
         {% endfor %}
     </div>
 
 </div>
+<script>
+    // JavaScript (script.js)
+    window.onload = function () {
+        // 페이지 로드 시 기존에 저장된 방명록 메시지를 복원합니다
+        restoreMessages();
+    };
+
+    function addMessage() {
+        var name = document.getElementById('name').value;
+        var message = document.getElementById('message').value;
+        if (name.trim() !== '' && message.trim() !== '') {
+            // 새로운 방명록 메시지를 만들고 스타일을 지정합니다
+            var newMessageContainer = document.createElement('div');
+            newMessageContainer.className = 'message-container';
+
+            var newMessage = document.createElement('div');
+            newMessage.className = 'message';
+            newMessage.innerHTML = '<strong>' + name + ':</strong> ' + message;
+
+            // 입력된 메시지를 Local Storage에 저장합니다
+            saveMessage(name, message);
+
+            // 방명록에 새로운 메시지를 추가합니다
+            newMessageContainer.appendChild(newMessage);
+            document.getElementById('guestbook').appendChild(newMessageContainer);
+
+            // 입력창을 비웁니다
+            document.getElementById('name').value = '';
+            document.getElementById('message').value = '';
+        }
+    }
+
+    function saveMessage(name, message) {
+        // Local Storage에 저장된 방명록 메시지 배열을 불러옵니다
+        var messages = JSON.parse(localStorage.getItem('messages')) || [];
+
+        // 새로운 메시지를 배열에 추가합니다
+        messages.push({ name: name, message: message });
+
+        // 배열을 다시 Local Storage에 저장합니다
+        localStorage.setItem('messages', JSON.stringify(messages));
+    }
+
+    function restoreMessages() {
+        // Local Storage에 저장된 방명록 메시지 배열을 불러옵니다
+        var messages = JSON.parse(localStorage.getItem('messages')) || [];
+
+        var guestbook = document.getElementById('guestbook');
+
+        // 배열에 저장된 각각의 메시지를 복원하여 방명록에 추가합니다
+        messages.forEach(function (item) {
+            var newMessageContainer = document.createElement('div');
+            newMessageContainer.className = 'message-container';
+
+            var newMessage = document.createElement('div');
+            newMessage.className = 'message';
+            newMessage.innerHTML = '<strong>' + item.name + ':</strong> ' + item.message;
+
+            newMessageContainer.appendChild(newMessage);
+            guestbook.appendChild(newMessageContainer);
+        });
+    }
+</script>
+<script src="script.js"></script>
 
 
 {% endblock %}
