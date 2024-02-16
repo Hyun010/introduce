@@ -67,6 +67,12 @@
         display: flex;
     }
 
+    .namecard {
+        width: 30%;
+        margin-bottom: 10px;
+
+    }
+
     .rules>img {
         width: 100px;
         height: 175px;
@@ -78,27 +84,6 @@
         margin: 0;
     }
 
-    .container3 {
-        flex: 1;
-        max-width: 800px;
-        margin: 80px;
-        padding: 10px;
-        background-color: rgba(255, 255, 255, 0);
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 1);
-        margin-left: 200px;
-    }
-
-    #guestbook {
-        margin-top: 20px;
-    }
-
-    textarea {
-        width: 95%;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-
     button {
         background-color: #4CAF50;
         color: white;
@@ -108,19 +93,6 @@
         cursor: pointer;
     }
 
-    .namecard {
-        width: 5%;
-        margin-bottom: 10px;
-        margin-left: 19px;
-
-    }
-
-    #guestbook {
-        float: left;
-        margin-top: 20px;
-        font-size: 5ch;
-
-    }
     .container.rules {
     display: flex;
 }
@@ -197,18 +169,30 @@
         </div>
         {% endfor %}
     </div>
-    <div class="container3">
-        <h1>방명록</h1>
-        <div>
-            <div class="namecard">
-                <input type="text" id="name" placeholder="이름을 입력하세요">
-            </div>
-            <textarea id="message" placeholder="메시지를 입력하세요"></textarea>
-            <button onclick="addMessage()">완료</button>
+
+    <div class="subject">
+        <img src="{{ url_for('static', filename='chalk.png')}}"> 방명록
+    </div>
+    <div>
+        <div class="namecard">
+            <input type="text" id="name" class="form-control" placeholder="이름을 입력하세요">
         </div>
-        <div id="guestbook">
-            <!-- 방명록 메시지가 여기에 추가됩니다 -->
-        </div>
+        <textarea id="message" class="form-control" style="height: 100px;" placeholder="메시지를 입력하세요"></textarea>
+
+        <button class="mt-3 btn btn-success" style="width:80%" onclick="addMessage()">작성</button>
+    </div>
+    
+    <div class="mt-4">
+        <table class="table table-bordered table-hover text-center">
+            <thead>
+                <tr class="table-success">
+                    <th scope="col" style="width:30%">NICKNAME</th>
+                    <th scope="col">COMMENT</th>
+                </tr>
+            </thead>
+            <tbody id="guestbook">
+            </tbody>
+        </table>
     </div>
 
 </div>
@@ -224,18 +208,20 @@
         var message = document.getElementById('message').value;
         if (name.trim() !== '' && message.trim() !== '') {
             // 새로운 방명록 메시지를 만들고 스타일을 지정합니다
-            var newMessageContainer = document.createElement('div');
+            var newMessageContainer = document.createElement('tr');
             newMessageContainer.className = 'message-container';
 
-            var newMessage = document.createElement('div');
-            newMessage.className = 'message';
-            newMessage.innerHTML = '<strong>' + name + ':</strong> ' + message;
+            var newMessage1 = document.createElement('th');
+            var newMessage2 = document.createElement('td');
+            newMessage1.innerHTML = '<strong>' + name + '</strong> '
+            newMessage2.innerHTML = message;
 
             // 입력된 메시지를 Local Storage에 저장합니다
             saveMessage(name, message);
 
             // 방명록에 새로운 메시지를 추가합니다
-            newMessageContainer.appendChild(newMessage);
+            newMessageContainer.appendChild(newMessage1);
+            newMessageContainer.appendChild(newMessage2);
             document.getElementById('guestbook').appendChild(newMessageContainer);
 
             // 입력창을 비웁니다
@@ -263,14 +249,15 @@
 
         // 배열에 저장된 각각의 메시지를 복원하여 방명록에 추가합니다
         messages.forEach(function (item) {
-            var newMessageContainer = document.createElement('div');
+            var newMessageContainer = document.createElement('tr');
             newMessageContainer.className = 'message-container';
 
-            var newMessage = document.createElement('div');
-            newMessage.className = 'message';
-            newMessage.innerHTML = '<strong>' + item.name + ':</strong> ' + item.message;
-
-            newMessageContainer.appendChild(newMessage);
+            var newMessage1 = document.createElement('th');
+            var newMessage2 = document.createElement('td');
+            newMessage1.innerHTML = '<strong>' + item.name + '</strong> '
+            newMessage2.innerHTML = item.message;
+            newMessageContainer.appendChild(newMessage1);
+            newMessageContainer.appendChild(newMessage2);
             guestbook.appendChild(newMessageContainer);
         });
     }
