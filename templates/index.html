@@ -81,11 +81,12 @@
     .container3 {
         flex: 1;
         max-width: 800px;
-        margin: 30px;
+        margin: 80px;
         padding: 10px;
         background-color: rgba(255, 255, 255, 0);
         border-radius: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+        margin-left: 200px;
     }
 
     #guestbook {
@@ -108,14 +109,16 @@
     }
 
     .namecard {
-        width: 30%;
+        width: 5%;
         margin-bottom: 10px;
+        margin-left: 19px;
 
     }
 
     #guestbook {
-        float: right;
-        margin-top: 10px;
+        float: left;
+        margin-top: 20px;
+        font-size: 5ch;
 
     }
     .container.rules {
@@ -171,19 +174,7 @@
             <li class="rule_1 ps-5">같이 발전하는 팀이 되자!</li><br>
             <li class="rule_1 ps-5">건강합시다!</li>
         </div>
-        <div class="container3">
-            <h1>방명록</h1>
-            <div>
-                <div class="namecard">
-                    <input type="text" id="name" placeholder="이름을 입력하세요">
-                </div>
-                <textarea id="message" placeholder="메시지를 입력하세요"></textarea>
-                <button onclick="addMessage()">완료</button>
-            </div>
-            <div id="guestbook">
-                <!-- 방명록 메시지가 여기에 추가됩니다 -->
-            </div>
-        </div>
+
     </div>
 
 
@@ -207,6 +198,19 @@
             </div>
         </div>
         {% endfor %}
+    </div>
+    <div class="container3">
+        <h1>방명록</h1>
+        <div>
+            <div class="namecard">
+                <input type="text" id="name" placeholder="이름을 입력하세요">
+            </div>
+            <textarea id="message" placeholder="메시지를 입력하세요"></textarea>
+            <button onclick="addMessage()">완료</button>
+        </div>
+        <div id="guestbook">
+            <!-- 방명록 메시지가 여기에 추가됩니다 -->
+        </div>
     </div>
 
 </div>
