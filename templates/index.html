@@ -152,7 +152,6 @@
                 학급규칙
             </div>
             <div class="container rules ps-5">
-                <img src="{{ url_for('static', filename='rules.png')}}">
                 <div class="lh-1">
                     <li class="rule_1 ps-5">서로 존중하는 분위기에서 회의와 프로젝트를 진행한다</li><br>
                     <li class="rule_1 ps-5">시간 약속은 지킨다</li><br>
@@ -168,7 +167,6 @@
         학급목표
     </div>
     <div class="container rules">
-        <img src="{{ url_for('static', filename='rules.png')}}">
         <div class="lh-1">
             <li class="rule_1 ps-5">'팀 소개 웹페이지' 프로젝트 완성</li><br>
             <li class="rule_1 ps-5">같이 발전하는 팀이 되자!</li><br>
@@ -184,7 +182,7 @@
     </div>
     <div class="row">
         {% for s in data.stus %}
-        <div class="col-lg-3">
+        <div class="col-lg-4">
             <!-- 구성원 -->
             <div class="card">
                 <a href="{{ url_for('profile', name=s.name)}}"><img src="{{ url_for('static', filename=s.image)}}"
